@@ -1,7 +1,5 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
-apply plugin: 'maven'
-apply plugin: 'signing'
 
 group = 'de.bripkens'
 version = '0.2.0-SNAPSHOT'
@@ -49,44 +47,49 @@ artifacts {
   archives javadocJar
 }
 
-signing {
-  sign configurations.archives
-}
+if (hasProperty('release')) {
+  apply plugin: 'maven'
+  apply plugin: 'signing'
 
-uploadArchives {
-  repositories {
-    mavenDeployer {
-      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+  signing {
+    sign configurations.archives
+  }
+  
+  uploadArchives {
+    repositories {
+      mavenDeployer {
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-        authentication(userName: sonatypeUsername, password: sonatypePassword)
-      }
-
-      pom.project {
-        name project.name
-        packaging 'jar'
-        description project.description
-        url 'https://github.com/bripkens/static-i18n'
-
-        scm {
-          url 'scm:git@github.com:bripkens/static-i18n.git'
-          connection 'scm:git@github.com:bripkens/static-i18n.git'
-          developerConnection 'scm:git@github.com:bripkens/static-i18n.git'
+        repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+          authentication(userName: sonatypeUsername, password: sonatypePassword)
         }
 
-        licenses {
-          license {
-            name 'The Apache Software License, Version 2.0'
-            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-            distribution 'repo'
+        pom.project {
+          name project.name
+          packaging 'jar'
+          description project.description
+          url 'https://github.com/bripkens/static-i18n'
+
+          scm {
+            url 'scm:git@github.com:bripkens/static-i18n.git'
+            connection 'scm:git@github.com:bripkens/static-i18n.git'
+            developerConnection 'scm:git@github.com:bripkens/static-i18n.git'
           }
-        }
 
-        developers {
-          developer {
-            id 'bripkens'
-            name 'Ben Ripkens'
-            email 'bripkens.dev@gmail.com'
+          licenses {
+            license {
+              name 'The Apache Software License, Version 2.0'
+              url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+              distribution 'repo'
+            }
+          }
+
+          developers {
+            developer {
+              id 'bripkens'
+              name 'Ben Ripkens'
+              email 'bripkens.dev@gmail.com'
+            }
           }
         }
       }
