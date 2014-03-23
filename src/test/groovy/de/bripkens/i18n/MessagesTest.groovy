@@ -10,7 +10,7 @@ class MessagesTest extends Specification {
 
   def 'should create proxies'(locale, _) {
     given:
-    Class<?> type = TestMessages.class
+    Class<?> type = TestMessages
     def messages = Messages.get(type, locale)
 
     expect:
@@ -25,7 +25,7 @@ class MessagesTest extends Specification {
 
   def 'should support multiple locales'(locale, hello, world) {
     given:
-    def messages = Messages.get(TestMessages.class, locale)
+    def messages = Messages.get(TestMessages, locale)
 
     expect:
     messages.hello() == hello
@@ -39,15 +39,18 @@ class MessagesTest extends Specification {
 
   def 'should report missing translations'() {
     given:
-    def proxy = Messages.get(TestMessages.class, Locale.GERMAN)
+    def proxy = Messages.get(TestMessages, Locale.GERMAN)
 
-    expect:
-    proxy.missing().startsWith('<<Missing resource bundle entry for \'missing\'')
+    when:
+    proxy.missing()
+
+    then:
+    thrown(I18nException)
   }
 
   def 'should support format parameters'(locale, name, msg) {
     given:
-    def proxy = Messages.get(TestMessages.class, locale)
+    def proxy = Messages.get(TestMessages, locale)
 
     expect:
     proxy.greetings(name) == msg
@@ -60,8 +63,8 @@ class MessagesTest extends Specification {
 
   def 'should cache proxy instances'() {
     given:
-    def deProxy1 = Messages.get(TestMessages.class, Locale.GERMAN)
-    def deProxy2 = Messages.get(TestMessages.class, Locale.GERMAN)
+    def deProxy1 = Messages.get(TestMessages, Locale.GERMAN)
+    def deProxy2 = Messages.get(TestMessages, Locale.GERMAN)
 
     expect:
     deProxy1.is(deProxy2)
@@ -69,8 +72,8 @@ class MessagesTest extends Specification {
 
   def 'should return different proxies for different locales'() {
     given:
-    def deProxy = Messages.get(TestMessages.class, Locale.GERMAN)
-    def enProxy = Messages.get(TestMessages.class, Locale.ENGLISH)
+    def deProxy = Messages.get(TestMessages, Locale.GERMAN)
+    def enProxy = Messages.get(TestMessages, Locale.ENGLISH)
 
     expect:
     !enProxy.is(deProxy)
