@@ -4,7 +4,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 group = 'de.bripkens'
-version = '0.1.0'
+version = '0.2.0-SNAPSHOT'
 description = 'Statically typed i18n for Java'
 
 
