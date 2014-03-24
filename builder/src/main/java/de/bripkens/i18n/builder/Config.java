@@ -16,6 +16,7 @@ class Config {
 
   int indention = 4;
   IndentionType indentionType = IndentionType.SPACE;
+  String lineBreak = "\n";
 
   private void invariant(boolean val, String msg) {
     if (!val) {
@@ -29,6 +30,7 @@ class Config {
     invariant(bundle != null, "bundle missing");
     invariant(indention > 0, "indention must be larger than 0");
     invariant(indentionType != null, "indention type missing");
+    invariant(lineBreak != null, "line break is missing");
 
     try {
       ResourceBundle.getBundle(bundle);

@@ -31,6 +31,11 @@ public class Builder {
     return this;
   }
 
+  public Builder lineBreak(String lineBreak) {
+    config.lineBreak = lineBreak;
+    return this;
+  }
+
   public String build() {
     return new SourceGenerator(config).run();
   }
