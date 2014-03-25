@@ -1,5 +1,8 @@
 package de.bripkens.i18n.builder;
 
+import java.util.Iterator;
+import java.util.List;
+
 import de.bripkens.i18n.MessagesSource;
 
 /**
@@ -14,26 +17,36 @@ public class SourceGenerator {
   private final Config config;
   private StringBuilder builder;
 
-  public SourceGenerator(Config config) {
+  SourceGenerator(Config config) {
     config.validate();
     this.config = config;
   }
 
   public String run() {
+    MethodExtractor extractor = new MethodExtractor();
+    final List<MethodDefinition> methods = extractor.extract(config.bundle);
+    // TODO imports for MethodDefinitions
     builder = new StringBuilder();
 
     packageStatement(config.pckg);
     importStatements(MessagesSource.class);
     annotation(MessagesSource.class, config.bundle);
+    classDefinition(config.name, new IndentAwareBlock() {
+      public void call(int level) {
+        methodDefinitions(methods, level);
+      }
+    });
 
     return builder.toString();
   }
 
-  private void nl() { builder.append(config.lineBreak); }
-
-  private void nl(int amount) {
-
+  private void w(int level, String s) {
+    indent(level);
+    builder.append(s);
+    nl();
   }
+
+  private void nl() { builder.append(config.lineBreak); }
 
   private void indent(int level) {
     int totalAmount = level * config.indention;
@@ -77,6 +90,51 @@ public class SourceGenerator {
     body.call(1);
     nl();
     builder.append("}");
+    nl();
+  }
+
+  private void methodDefinitions(List<MethodDefinition> methods,
+      int level) {
+    if (methods.isEmpty()) {
+      indent(level);
+      builder.append("// empty resource bundle");
+      return;
+    }
+
+    for (MethodDefinition method : methods) {
+      methodDefinition(method, level);
+    }
+  }
+
+  private void methodDefinition(MethodDefinition method, int level) {
+    nl();
+    w(level, "/**");
+    w(level, " * Text from resource bundle:");
+    w(level, " * <pre>");
+    w(level, " * " + method.comment);
+    w(level, " * </pre>");
+    w(level, " */");
+
+    indent(level);
+    builder.append(method.returnType.getSimpleName())
+      .append(" ")
+      .append(method.name)
+      .append("(");
+
+    int paramIndex = 0;
+    for (Class<?> type : method.paramTypes) {
+      if (paramIndex > 0) {
+        builder.append(",");
+        nl();
+        indent(level + 1);
+      }
+
+      builder.append(type.getSimpleName())
+          .append(" p" + paramIndex);
+      paramIndex++;
+    }
+
+    builder.append(");");
     nl();
   }
 

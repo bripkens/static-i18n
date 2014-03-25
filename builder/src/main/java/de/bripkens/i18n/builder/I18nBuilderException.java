@@ -3,7 +3,7 @@ package de.bripkens.i18n.builder;
 import de.bripkens.i18n.I18nException;
 
 /**
- * @author Ben Ripkens <ben.ripkens@codecentric.de>
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 public class I18nBuilderException extends I18nException {
 

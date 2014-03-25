@@ -1,7 +1,7 @@
 package de.bripkens.i18n.builder;
 
 /**
- * @author Ben Ripkens <ben.ripkens@codecentric.de>
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 public abstract class MessageInterface {
 

@@ -6,7 +6,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * @author Ben Ripkens <ben.ripkens@codecentric.de>
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 class Config {
   String name;
@@ -35,7 +35,7 @@ class Config {
     try {
       ResourceBundle.getBundle(bundle);
     } catch(MissingResourceException ex) {
-      throw new I18nException("Bundle cannot be found", ex);
+      throw new I18nBuilderException("Bundle cannot be found", ex);
     }
   }
 

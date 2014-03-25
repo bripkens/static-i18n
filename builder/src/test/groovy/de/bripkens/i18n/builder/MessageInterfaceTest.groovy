@@ -5,7 +5,7 @@ import spock.lang.Specification
 
 /**
  *
- * @author Ben Ripkens <ben.ripkens@codecentric.de>
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 class MessageInterfaceTest extends Specification {
 

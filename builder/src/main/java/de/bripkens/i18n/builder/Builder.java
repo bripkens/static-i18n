@@ -1,10 +1,14 @@
 package de.bripkens.i18n.builder;
 
 /**
- * @author Ben Ripkens <ben.ripkens@codecentric.de>
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 public class Builder {
   private Config config = new Config();
+
+  Builder() {
+    // limit visivility
+  }
 
   public Builder name(String name) {
     config.name = name;
