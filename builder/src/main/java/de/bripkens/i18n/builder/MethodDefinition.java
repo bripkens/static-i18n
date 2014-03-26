@@ -26,8 +26,9 @@ class MethodDefinition {
 
   public static final Comparator<MethodDefinition> COMPARATOR_NAME =
       new Comparator<MethodDefinition>() {
-        public int compare(MethodDefinition m1, MethodDefinition m2) {
-          return m1.name.compareTo(m2.name);
-        }
-      };
+    @Override
+    public int compare(MethodDefinition m1, MethodDefinition m2) {
+      return m1.name.compareTo(m2.name);
+    }
+  };
 }

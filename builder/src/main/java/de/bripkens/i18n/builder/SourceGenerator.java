@@ -1,6 +1,5 @@
 package de.bripkens.i18n.builder;
 
-import java.util.Iterator;
 import java.util.List;
 
 import de.bripkens.i18n.MessagesSource;
@@ -32,6 +31,7 @@ public class SourceGenerator {
     importStatements(MessagesSource.class);
     annotation(MessagesSource.class, config.bundle);
     classDefinition(config.name, new IndentAwareBlock() {
+      @Override
       public void call(int level) {
         methodDefinitions(methods, level);
       }

@@ -1,7 +1,5 @@
 package de.bripkens.i18n.builder;
 
-import de.bripkens.i18n.I18nException;
-
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
