@@ -1,7 +1,9 @@
 rootProject.name = 'parent'
 
 include 'core',
-        'builder'
+        'builder',
+        'testing'
 
 project(':core').name = 'static-i18n'
 project(':builder').name = 'static-i18n-builder'
+project(':testing').name = 'static-i18n-testing'

@@ -1,0 +1,5 @@
+dependencies {
+  compile project(':static-i18n')
+  compile project(':static-i18n-builder')
+  // TODO org.reflections
+}
