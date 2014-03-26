@@ -20,7 +20,7 @@ class SourceGeneratorTest extends Specification {
     def s = builder.build()
 
     then:
-    s == slurp('/empty.java')
+    s == slurp('/empty.java.txt')
   }
 
   def 'should handle simple cases'(name, _) {
@@ -34,7 +34,7 @@ class SourceGeneratorTest extends Specification {
     def s = builder.build()
 
     then:
-    s == slurp("/${name}.java")
+    s == slurp("/${name}.java.txt")
 
     where:
     name                 | _
