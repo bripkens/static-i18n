@@ -16,6 +16,8 @@ public @interface MessagesSource {
      * The base name of the resource bundle, a fully qualified class name in
      * accordance with the documentation of
      * {@link java.util.ResourceBundle#getBundle(String)}.
+     *
+     * Example: META-INF.foobar.my-properties-file
      */
     String value();
 }

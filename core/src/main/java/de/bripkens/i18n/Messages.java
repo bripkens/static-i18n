@@ -74,7 +74,7 @@ public class Messages {
     }
   }
 
-  private static String format(String format, Object[] params) {
+  public static String format(String format, Object[] params) {
     // we can skip the parsing step when there are no format parameters
     // (parsing is done by the MessageFormat class)
     if (params == null || params.length == 0) {
